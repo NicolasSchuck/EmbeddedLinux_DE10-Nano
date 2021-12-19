@@ -1,0 +1,11 @@
+db/*
+output_files/*
+soc_system/*
+.qsys_edit/*
+incremental_db/*
+hps_isw_handoff/*
+*.sopcinfo
+*.csv
+*.bak
+*.txt
+*.qws
