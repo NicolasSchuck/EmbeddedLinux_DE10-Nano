@@ -1,0 +1,14 @@
+----------------------------------------------------------
+README - DE10_Nano_SoC
+----------------------------------------------------------
+
+How to build the project:
+-open the project with quartus prime lite 18.1 edition 
+-"Tools->Tcl Scripts..."
+-run Project/DE10_Nano_SoC.tcl
+-"Tools->Platform Designer"
+-load soc_system.qsys
+-click "Generate HDL..."
+-"Tools->Tcl Scripts..."
+-run soc_system/synthesis/submodules/hps_sdram_p0_pin_assignments.tcl
+-Start Compilation Strg+L
