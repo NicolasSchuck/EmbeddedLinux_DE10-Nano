@@ -14,7 +14,7 @@
 
 # Quartus Prime: Generate Tcl File for Project
 # File: DE10_Nano_SoC.tcl
-# Generated on: Sun Dec 19 11:38:18 2021
+# Generated on: Sun Jan 16 18:00:26 2022
 
 # Load Quartus Prime Tcl Project package
 package require ::quartus::project
@@ -42,27 +42,30 @@ if {[is_project_open]} {
 if {$make_assignments} {
 	set_global_assignment -name FAMILY "Cyclone V"
 	set_global_assignment -name DEVICE 5CSEBA6U23I7
-	set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
+	set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 	set_global_assignment -name PROJECT_CREATION_TIME_DATE "17:14:54 MARCH 04,2015"
-	set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
-	set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-	set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-	set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+	set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
 	set_global_assignment -name MIN_CORE_JUNCTION_TEMP "-40"
 	set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
 	set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 	set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+	set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+	set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+	set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+	set_global_assignment -name QIP_FILE soc_system/synthesis/soc_system.qip
+	set_global_assignment -name VERILOG_FILE DE10_Nano_SoC.v
+	set_global_assignment -name VHDL_FILE ip/gpio_test/gpio_test.vhd
+	set_global_assignment -name VERILOG_FILE ip/edge_detect/altera_edge_detector.v
+	set_global_assignment -name VERILOG_FILE ip/debounce/debounce.v
+	set_global_assignment -name QIP_FILE ip/altsource_probe/hps_reset.qip
+	set_global_assignment -name SDC_FILE DE10_Nano_SoC.sdc
+	set_global_assignment -name VERILOG_FILE ip/custom_counter/custom_counter.v
+	set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 	set_global_assignment -name USE_DLL_FREQUENCY_FOR_DQS_DELAY_CHAIN ON
 	set_global_assignment -name UNIPHY_SEQUENCER_DQS_CONFIG_ENABLE ON
 	set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING ON
 	set_global_assignment -name ECO_REGENERATE_REPORT ON
-	set_global_assignment -name SDC_FILE DE10_Nano_SoC.sdc
 	set_global_assignment -name VERILOG_FILE ip/intr_capturer/intr_capturer.v
-	set_global_assignment -name VERILOG_FILE ip/edge_detect/altera_edge_detector.v
-	set_global_assignment -name VERILOG_FILE ip/debounce/debounce.v
-	set_global_assignment -name QIP_FILE ip/altsource_probe/hps_reset.qip
-	set_global_assignment -name QIP_FILE soc_system/synthesis/soc_system.qip
-	set_global_assignment -name VHDL_FILE ip/gpio_test/gpio_test.vhd
 	set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FPGA_CLK1_50
 	set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FPGA_CLK2_50
 	set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to FPGA_CLK3_50

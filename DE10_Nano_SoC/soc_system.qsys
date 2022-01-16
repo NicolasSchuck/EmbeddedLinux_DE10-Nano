@@ -69,6 +69,22 @@
          type = "boolean";
       }
    }
+   element custom_counter_0
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
+   element custom_counter_0.avalon_slave_0
+   {
+      datum baseAddress
+      {
+         value = "65536";
+         type = "String";
+      }
+   }
    element dipsw_pio
    {
       datum _sortIndex
@@ -159,6 +175,14 @@
       }
    }
    element hps_0.f2h_axi_slave
+   {
+      datum baseAddress
+      {
+         value = "0";
+         type = "String";
+      }
+   }
+   element hps_0.f2h_sdram0_data
    {
       datum baseAddress
       {
@@ -261,7 +285,7 @@
  <parameter name="hideFromIPCatalog" value="false" />
  <parameter name="lockedInterfaceDefinition" value="" />
  <parameter name="maxAdditionalLatency" value="1" />
- <parameter name="projectName">DE10_Nano_SoC.qpf</parameter>
+ <parameter name="projectName" value="DE10_Nano_SoC.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
  <parameter name="testBenchDutName" value="" />
@@ -342,6 +366,11 @@
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
+ <module
+   name="custom_counter_0"
+   kind="custom_counter"
+   version="1.0"
+   enabled="1" />
  <module name="dipsw_pio" kind="altera_avalon_pio" version="18.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="true" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -976,6 +1005,15 @@
  <connection
    kind="avalon"
    version="18.1"
+   start="hps_0.h2f_axi_master"
+   end="custom_counter_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00010000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
    start="hps_0.h2f_lw_axi_master"
    end="gpio_test_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
@@ -1125,6 +1163,11 @@
    kind="clock"
    version="18.1"
    start="clk_0.clk"
+   end="custom_counter_0.clock" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_0.clk"
    end="hps_0.f2h_axi_clock" />
  <connection
    kind="clock"
@@ -1216,6 +1259,11 @@
    version="18.1"
    start="clk_0.clk_reset"
    end="gpio_test_0.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_0.clk_reset"
+   end="custom_counter_0.reset" />
  <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="ILC.reset_n" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
