@@ -1,7 +1,6 @@
 # !/bin/bash
 
 filePath=$(pwd)
-quartusPath="~/intelFPGA_lite/18.1/quartus/bin"
 
 echo "Export quartus prime location to PATH \n"
 
@@ -19,15 +18,25 @@ done
 echo "Compile: $compile";
 
 export PATH="~/intelFPGA_lite/18.1/quartus/bin:$PATH"
-export PATH="~/intelFPGA_lite/18.1/quartus/sopc_builder/bin:$PATH"
+# export PATH="~/intelFPGA_lite/18.1/quartus/sopc_builder/bin:$PATH"
 
 if [ $compile = 'TRUE' ] || [ $compile = 'true' ];
 then
 	cd $filePath/DE10_Nano_SoC
+	echo $filePath
 	echo "Generate qsys"
-	qsys-generate soc_system.qsys --synthesis=VERILOG
+	~/intelFPGA_lite/18.1/quartus/sopc_builder/bin/qsys-generate soc_system.qsys --synthesis=VERILOG
 	echo "Compile Quartus Project"
-	quartus_sh --flow compile ./DE10_Nano_SoC
+	echo "Analysis & Synthesis"
+	~/intelFPGA_lite/18.1/quartus/bin/quartus_map --read_settings_files=on --write_settings_files=off DE10_Nano_SoC -c DE10_Nano_SoC
+	echo "Fitter"
+	~/intelFPGA_lite/18.1/quartus/bin/quartus_fit --read_settings_files=off --write_settings_files=off DE10_Nano_SoC -c DE10_Nano_SoC
+	echo "Assembler"
+	~/intelFPGA_lite/18.1/quartus/bin/quartus_asm --read_settings_files=off --write_settings_files=off DE10_Nano_SoC -c DE10_Nano_SoC
+	echo "Timing Analysis"
+	~/intelFPGA_lite/18.1/quartus/bin/quartus_sta DE10_Nano_SoC -c DE10_Nano_SoC
+
+	#quartus_sh --flow compile ./DE10_Nano_SoC
 	cd ..
 	cp 
 else
@@ -88,11 +97,13 @@ then
 	EOF
 	
 	cp ../files/.config .
+	cp ../files/full_users_table.txt .
 	
 	make
 else
 	echo "Buildroot already exists"
 fi
+
 
 # echo "Run Embedded Command Shell \n"
 # ~/intelFPGA/18.1/embedded/./embedded_command_shell.sh
@@ -120,9 +131,21 @@ sopc2dts --input soc_system.sopcinfo --output soc_system.dts --type dts --board 
 echo "Generate .dtb \n"
 dtc -I dts -O dtb -o soc_system.dtb soc_system.dts
 
+cd $filePath/buildroot
+cp ../DE10_Nano_SoC/soc_system.dts .
+cp ../files/full_users_table.txt .
+make
+
+cd $filePath/DE10_Nano_SoC
+
 if [ $image = 'TRUE' ] || [ $image = 'true' ]; 
 then
+     	cd ..
+     	sudo rm -fr sdcard
+	mkdir sdcard
+	cd sdcard
 	cd ../sdcard
+	cp ../files/genImg.sh .
 	sudo sh genImg.sh
 else
 	echo "No Image to be done"

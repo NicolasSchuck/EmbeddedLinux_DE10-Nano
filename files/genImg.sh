@@ -4,12 +4,23 @@
 
 #echo "Delete rootfs/.img \n"
 
-sudo rm -rf rootfs
-sudo rm de10-nano_soc-sd-card.img
+if [ -d "rootfs" ];
+then
+	echo "remove rootfs"
+	sudo rm -rf rootfs
+fi
+
+if [ -f "de10-nano_soc-sd-card.img" ];
+then
+	echo "remove sdcard image"
+	sudo rm de10-nano_soc-sd-card.img
+fi
 
 #echo "Copy lates files \n"
 
 cp ../files/make_sdimage_p3.py .
+
+cp ../u-boot-socfpga/u-boot.scr .
 
 cp ../buildroot/output/images/rootfs.tar .
 
