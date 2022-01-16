@@ -38,7 +38,6 @@ then
 
 	#quartus_sh --flow compile ./DE10_Nano_SoC
 	cd ..
-	cp 
 else
 	echo "No Compilation to be done"
 fi
