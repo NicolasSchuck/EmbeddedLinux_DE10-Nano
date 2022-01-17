@@ -49,16 +49,11 @@ DIR="buildroot"
 if [ ! -d $DIR ]; 
 then
 	echo "Get buildroot"
+	cd $filePath
 	git clone https://github.com/buildroot/buildroot.git
 	cd buildroot
 	git checkout 2018.11.x
 	make clean
-	
-	echo "Create full_users_table.txt"
-
-	cat > boot.script <<- "EOF"
-	socfpga -1 fpga -1 =socfpga /home/socfpga /bin/sh - Socfpga user
-	EOF
 	
 	cp ../files/.config .
 else
