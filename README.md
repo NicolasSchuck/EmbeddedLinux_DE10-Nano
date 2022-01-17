@@ -3,7 +3,7 @@
 #install packages
 sudo sh setup.sh
 
-#install quartus prime 18.1 and SoCEDSSetup-18.1
+#install quartus prime 18.1 and SoCEDSSetup-18.1 with standard installation paths
 
 # first run
 ~/intelFPGA/18.1/embedded/./embedded_command_shell.sh
