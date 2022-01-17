@@ -42,6 +42,32 @@ else
 	echo "No Compilation to be done"
 fi
 
+DIR="buildroot"
+
+if [ ! -d $DIR ]; 
+then
+	echo "Get buildroot"
+	git clone https://github.com/buildroot/buildroot.git
+	cd buildroot
+	git checkout 2018.11.x
+	make clean
+	
+	echo "Create full_users_table.txt"
+
+	cat > boot.script <<- "EOF"
+	socfpga -1 fpga -1 =socfpga /home/socfpga /bin/sh - Socfpga user
+	EOF
+	
+	cp ../files/.config .
+	cp ../files/full_users_table.txt .
+	
+	make
+else
+	echo "Buildroot already exists"
+fi
+
+export PATH=$filePath/buildroot/output/host/usr/bin:$PATH
+
 DIR="u-boot-socfpga"
 
 if [ ! -d $DIR ];
@@ -78,31 +104,6 @@ then
 else
 	echo "u-boot already exists"
 fi
-
-DIR="buildroot"
-
-if [ ! -d $DIR ]; 
-then
-	echo "Get buildroot"
-	git clone https://github.com/buildroot/buildroot.git
-	cd buildroot
-	git checkout 2018.11.x
-	make clean
-	
-	echo "Create full_users_table.txt"
-
-	cat > boot.script <<- "EOF"
-	socfpga -1 fpga -1 =socfpga /home/socfpga /bin/sh - Socfpga user
-	EOF
-	
-	cp ../files/.config .
-	cp ../files/full_users_table.txt .
-	
-	make
-else
-	echo "Buildroot already exists"
-fi
-
 
 # echo "Run Embedded Command Shell \n"
 # ~/intelFPGA/18.1/embedded/./embedded_command_shell.sh
