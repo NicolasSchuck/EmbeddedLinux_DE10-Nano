@@ -1,0 +1,39 @@
+//python settings forever
+sudo apt install python-is-python3
+
+//simple way alias
+alias python=python3
+
+
+sudo apt install python3-django
+
+/* reference: https://docs.djangoproject.com/en/4.0/ref/django-admin/ */
+
+//Creating a project
+mkdir project
+
+//Django project
+cd project
+django-admin startproject mysite
+
+//run server 
+cd mysite
+python3 manage.py runserver ip:port
+
+//add application
+python3 manage.py startapp polls
+
+//changes in models
+1. change models.py
+2. python manage.py makemigrations (create migrations for changes)
+3. python manage.py migrate (apply changes to database)
+
+//open in python shell
+python manage.py shell
+
+//create admin user
+python manage.py createsuperuser
+Username: admin
+Email address: admin@example.com
+pw: *******
+pw: *******
