@@ -136,5 +136,5 @@ add_interface_port conduit_end leds leds Output 8
 # Device tree generation
 set_module_assignment embeddedsw.dts.vendor "ns"
 set_module_assignment embeddedsw.dts.compatible "dev,gpio_test"
-set_module_assignment embeddedsw.dts.group "gpioj_test"
+set_module_assignment embeddedsw.dts.group "gpio_test"
 

@@ -24,6 +24,8 @@ if [ $compile = 'TRUE' ] || [ $compile = 'true' ];
 then
 	cd $filePath/DE10_Nano_SoC
 	echo $filePath
+	echo "Pin Assignments"
+	~/intelFPGA_lite/18.1/quartus/bin/quartus_sh -t DE10_Nano_SoC.tcl
 	echo "Generate qsys"
 	~/intelFPGA_lite/18.1/quartus/sopc_builder/bin/qsys-generate soc_system.qsys --synthesis=VERILOG
 	echo "Compile Quartus Project"
@@ -59,12 +61,42 @@ then
 	EOF
 	
 	cp ../files/.config .
-	cp ../files/full_users_table.txt .
-	
-	make
 else
 	echo "Buildroot already exists"
 fi
+
+# echo "Run Embedded Command Shell \n"
+# ~/intelFPGA/18.1/embedded/./embedded_command_shell.sh
+
+cd $filePath/DE10_Nano_SoC
+
+echo "Run BSP-Editor"
+
+bsp-create-settings \
+   --type spl \
+   --bsp-dir software/spl_bsp \
+   --preloader-settings-dir hps_isw_handoff/soc_system_hps_0 \
+   --settings software/spl_bsp/settings.bsp \
+   --set spl.boot.FAT_SUPPORT 'true'
+   
+cd software/spl_bsp
+make
+cd ../..
+
+echo "Generate .rbf \n"
+quartus_cpf -c -o bitstream_compression=off ./output_files/DE10_Nano_SoC.sof soc_system.rbf
+#quartus_cpf -c soc_system.cof
+
+echo "Generate .dts \n"
+sopc2dts --input soc_system.sopcinfo --output soc_system.dts --type dts --board soc_system_board_info.xml --board hps_common_board_info.xml --bridge-removal all --clocks
+
+echo "Generate .dtb \n"
+dtc -I dts -O dtb -o soc_system.dtb soc_system.dts
+
+cd $filePath/buildroot
+cp ../DE10_Nano_SoC/soc_system.dts .
+cp ../files/full_users_table.txt .
+make
 
 export PATH=$filePath/buildroot/output/host/usr/bin:$PATH
 
@@ -105,37 +137,6 @@ then
 else
 	echo "u-boot already exists"
 fi
-
-# echo "Run Embedded Command Shell \n"
-# ~/intelFPGA/18.1/embedded/./embedded_command_shell.sh
-
-cd $filePath/DE10_Nano_SoC
-
-echo "Run BSP-Editor"
-
-bsp-create-settings \
-   --type spl \
-   --bsp-dir software/spl_bsp \
-   --preloader-settings-dir hps_isw_handoff/soc_system_hps_0 \
-   --settings software/spl_bsp/settings.bsp
-   
-cd software/spl_bsp
-make
-cd ../..
-
-echo "Generate .rbf \n"
-quartus_cpf -c -o bitstream_compression=off ./output_files/DE10_Nano_SoC.sof soc_system.rbf
-
-echo "Generate .dts \n"
-sopc2dts --input soc_system.sopcinfo --output soc_system.dts --type dts --board soc_system_board_info.xml --board hps_common_board_info.xml --bridge-removal all --clocks
-
-echo "Generate .dtb \n"
-dtc -I dts -O dtb -o soc_system.dtb soc_system.dts
-
-cd $filePath/buildroot
-cp ../DE10_Nano_SoC/soc_system.dts .
-cp ../files/full_users_table.txt .
-make
 
 cd $filePath/DE10_Nano_SoC
 
