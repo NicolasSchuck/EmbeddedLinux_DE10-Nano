@@ -73,6 +73,7 @@ DIR="u-boot-socfpga"
 if [ ! -d $DIR ];
 then
 	echo "Get u-boot repo"
+	cd $filePath
 	git clone https://github.com/altera-opensource/u-boot-socfpga.git
 	cd u-boot-socfpga
 	git checkout ACDS18.1_REL_GSRD_PR
