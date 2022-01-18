@@ -27,9 +27,9 @@
  */
 #define CUSTOM_COUNTER_0_COMPONENT_TYPE custom_counter
 #define CUSTOM_COUNTER_0_COMPONENT_NAME custom_counter_0
-#define CUSTOM_COUNTER_0_BASE 0x10000
+#define CUSTOM_COUNTER_0_BASE 0x0
 #define CUSTOM_COUNTER_0_SPAN 8
-#define CUSTOM_COUNTER_0_END 0x10007
+#define CUSTOM_COUNTER_0_END 0x7
 
 /*
  * Macros for device 'sysid_qsys', class 'altera_avalon_sysid_qsys'

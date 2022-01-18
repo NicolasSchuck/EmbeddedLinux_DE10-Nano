@@ -56,6 +56,7 @@ then
 	make clean
 	
 	cp ../files/.config .
+	cp -r ../files/rootfs-overlay/ .
 else
 	echo "Buildroot already exists"
 fi

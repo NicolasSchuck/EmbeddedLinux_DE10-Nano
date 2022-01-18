@@ -58,12 +58,12 @@ int main(void) {
     }
 
     h2p_counter_addr=axi_virtual_base + ((unsigned long)(0x0 + CUSTOM_COUNTER_0_BASE) & (unsigned long)(HW_FPGA_AXI_MASK));
-    uint64_t count = 0;
+    uint32_t count = 0;
 
     while(1) {
         printf("%lu \n", (unsigned long)count);
         usleep(1000*500);
-        count = *((uint64_t *)h2p_counter_addr);
+        count = *((uint32_t *)h2p_counter_addr);
     }
 
     if( munmap( axi_virtual_base, HW_FPGA_AXI_SPAN ) != 0 )
