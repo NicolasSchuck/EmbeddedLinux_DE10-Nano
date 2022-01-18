@@ -37,10 +37,9 @@ int main(void) {
 
     void *axi_virtual_base;
     void *h2p_counter_addr;
-    void *h2p_led_addr;
 
     //validate the features of the actual hardware
-    validate_soc_system();
+    //validate_soc_system();
 
     if(( fd = open( "/dev/mem", ( O_RDWR | O_SYNC ) ) ) == -1 )
     {

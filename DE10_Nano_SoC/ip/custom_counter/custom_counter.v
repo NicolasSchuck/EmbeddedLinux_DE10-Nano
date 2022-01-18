@@ -7,10 +7,10 @@ module custom_counter
 	//input write,
 	//input read,
 	//input [63:0] data_in,
-	output [63:0] data_out
+	output [31:0] data_out
 );
 
-	reg [63:0] counter;
+	reg [31:0] counter;
 
 	always @ (posedge clk or negedge reset_n)
 	begin

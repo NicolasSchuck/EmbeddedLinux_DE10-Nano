@@ -77,6 +77,8 @@ bsp-create-settings \
 cd software/spl_bsp
 make
 cd ../..
+echo "create custom header"
+sopc-create-header-files DE1_SoC.sopcinfo --single hps_0.h --module hps_0
 
 echo "Generate .rbf \n"
 quartus_cpf -c -o bitstream_compression=off ./output_files/DE10_Nano_SoC.sof soc_system.rbf
