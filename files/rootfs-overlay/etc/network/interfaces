@@ -5,6 +5,6 @@ iface lo inet loopback
 auto eth0
 iface eth0 inet static
 	# hostname $(hostname)
-	address 192.168.8.222
+	address 192.168.0.222
 	netmask 255.255.255.0
-	gateway 192.168.8.1
+	gateway 192.168.0.1

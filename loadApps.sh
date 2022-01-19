@@ -21,5 +21,6 @@ then
 	scp -r software/ $usr@$ip_addr:/home/$usr/software/
 	scp -r Django/ $usr@$ip_addr:/home/$usr/
 else
-	echo "Wrong Input"
+	scp -r software/ socfpga@192.168.0.222:/home/socfpga/software/
+	scp -r Django/ socfpga@192.168.0.222:/home/socfpga/
 fi
