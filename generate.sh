@@ -95,6 +95,7 @@ cd $filePath/buildroot
 cp ../DE10_Nano_SoC/soc_system.dts .
 cp ../files/full_users_table.txt .
 make
+make skd
 
 export PATH=$filePath/buildroot/output/host/usr/bin:$PATH
 

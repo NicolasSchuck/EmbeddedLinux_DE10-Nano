@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Board</title>
+    </head>
+
+    <body>
+        <form action="{% url 'fpgaCounter:HelloWorld' %}" method="post">
+            {% csrf_token %}
+            <fieldset>
+                <h1>FPGA LED Control</h1>
+                <h3>CounterValue: {{ Counter }}</h3>
+            
+        <button onclick="location.href='{% url 'fpgaCounter:HelloWorld' %}'">HelloWorld</button>
+        <button onclick="location.href='{% url 'fpgaCounter:scriptLEDON' %}'">LED ON</button>
+        <button onclick="location.href='{% url 'fpgaCounter:scriptLEDOFF' %}'">LED OFF</button>
+    </fieldset>
+        </form>
+    </body>
+</html>

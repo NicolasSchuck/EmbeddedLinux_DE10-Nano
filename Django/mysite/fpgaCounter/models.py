@@ -7,11 +7,11 @@ from django.db import models
 from django.utils import timezone
 
 class Counter(models.Model):
-    question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
+    reading = models.CharField(max_length=200)
+    timestamp = models.DateTimeField('date published')
     
     def __str__(self):
-        return self.question_text
+        return self.reading
 
     def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        return self.timestamp >= timezone.now() - datetime.timedelta(days=1)
