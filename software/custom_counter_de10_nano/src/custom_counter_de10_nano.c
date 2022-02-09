@@ -60,11 +60,15 @@ int main(void) {
     h2p_counter_addr=axi_virtual_base + ((unsigned long)(0x0 + CUSTOM_COUNTER_0_BASE) & (unsigned long)(HW_FPGA_AXI_MASK));
     uint32_t count = 0;
 
+#ifndef DJANGO
     while(1) {
+#endif
         //usleep(1000*500);
         count = *((uint32_t *)h2p_counter_addr);
         printf("%lu \n", (unsigned long)count);
+#ifndef DJANGO
     }
+#endif
 
     if( munmap( axi_virtual_base, HW_FPGA_AXI_SPAN ) != 0 )
     {
