@@ -61,9 +61,9 @@ int main(void) {
     uint32_t count = 0;
 
     while(1) {
-        printf("%lu \n", (unsigned long)count);
-        usleep(1000*500);
+        //usleep(1000*500);
         count = *((uint32_t *)h2p_counter_addr);
+        printf("%lu \n", (unsigned long)count);
     }
 
     if( munmap( axi_virtual_base, HW_FPGA_AXI_SPAN ) != 0 )
