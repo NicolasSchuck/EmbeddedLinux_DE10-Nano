@@ -21,17 +21,17 @@ def Detail(request):
         
 
 def LED0_ON(request):
-    call('/./gpio_test -l 1', shell=True)
+    call("../.././gpio_test -l 234")
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def LED0_OFF(request):
-    call('/./gpio_test -l 0', shell=True)
+    call("../.././gpio_test -l 0")
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def HelloWorld(request):
     global countVar
     countVal = 0
-    countVal = int(subprocess.check_output(["./testProject"], stderr=subprocess.STDOUT, timeout=None))
+    countVal = int(subprocess.check_output(["../.././custom_counter_de10_nano"], stderr=subprocess.STDOUT, timeout=None))
     Counter.reading = countVal
     countVar = countVal
     print(countVal)
