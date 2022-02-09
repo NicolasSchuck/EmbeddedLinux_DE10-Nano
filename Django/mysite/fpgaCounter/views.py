@@ -21,11 +21,11 @@ def Detail(request):
         
 
 def LED0_ON(request):
-    call("../.././gpio_test -l 234")
+    call(["../.././gpio_test", "-l", "234"])
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def LED0_OFF(request):
-    call("../.././gpio_test -l 0")
+    call(["../.././gpio_test", "-l", "0"])
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 def HelloWorld(request):
